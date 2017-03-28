@@ -1,17 +1,26 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+import express from 'express';
+import path from 'path';
+import favicon from 'serve-favicon';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import graphqlHTTP from 'express-graphql'
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+import { mongodb } from 'mongodb';
+import monk from 'monk';
+
+import index from './routes/index';
+import users from './routes/users';
+import { schema } from './graphql/schema';
 
 var app = express();
+const production = app.get('env') === 'production';
+// TODO: ADD a production mongo server
+export const db = monk(production ? '***PRODUCTION MONGO SERVER***' : 'localhost:27017/obh-server');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+// TODO: Eventually get rid of jade
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -21,6 +30,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use((req, res, next) => {
+  req.db = db;
+  next();
+});
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  graphiql: true
+}))
 
 app.use('/', index);
 app.use('/users', users);
@@ -43,4 +62,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export default app;
