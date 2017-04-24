@@ -1,18 +1,22 @@
 import {GraphQLList, GraphQLString, GraphQLNonNull, GraphQLID} from 'graphql';
-import UserType from './types/user';
-import User from '../models/user';
+import userType from './types/user';
+import UserModel from '../models/user';
+
+import postType from './types/post';
+import PostModel from '../models/post';
+
 
 // import getProjection from '../../get-projection';
 
 const queries = {
   users: {
-    type: new GraphQLList(UserType),
+    type: new GraphQLList(userType),
     resolve() {
-      return User.find({});
+      return UserModel.find({});
     }
   },
   user: {
-    type: UserType,
+    type: userType,
     args: {
       id: {
         name: 'id',
@@ -20,8 +24,13 @@ const queries = {
       }
     },
     resolve(root, params, options) {
-      return User
-        .findById(params.id)
+      return UserModel.findById(params.id)
+    }
+  },
+  posts: {
+    type: new GraphQLList(postType),
+    resolve(root, params, options) {
+      return PostModel.find({});
     }
   }
 }

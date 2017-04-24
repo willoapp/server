@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+import mongoose, {Schema} from 'mongoose';
+import Post from './post'
 
 var userSchema = new mongoose.Schema({
   email: {
@@ -7,6 +8,10 @@ var userSchema = new mongoose.Schema({
   },
   username: {
     type: String,
+  },
+  posts: {
+    type: [Schema.Types.ObjectId],
+    ref: 'PostType'
   }
 });
 

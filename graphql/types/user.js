@@ -3,19 +3,15 @@ import {
   GraphQLString,
   GraphQLNonNull,
   GraphQLID,
+  GraphQLList
 } from 'graphql';
+import {PostType} from './post';
 
 export default new GraphQLObjectType({
-  name: 'user',
+  name: 'User',
   fields: {
-    _id: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    email: {
-      type: GraphQLString
-    },
-    username: {
-      type: GraphQLString
-    }
+    _id: { type: new GraphQLNonNull(GraphQLID) },
+    email: { type: GraphQLString },
+    username: { type: GraphQLString },
   }
 });
