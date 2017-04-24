@@ -24,10 +24,23 @@ const queries = {
       return UserModel.findById(params.id)
     }
   },
+
   posts: {
     type: new GraphQLList(postType),
     resolve(root, params, options) {
       return PostModel.find({});
+    }
+  },
+  post: {
+    type: postType,
+    args: {
+      id: {
+        name: 'id',
+        type: new GraphQLNonNull(GraphQLID)
+      }
+    },
+    resolve(root, params, options) {
+      return PostModel.findById(params.id)
     }
   }
 }

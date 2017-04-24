@@ -8,7 +8,7 @@ import {
 import postType from './post';
 import PostModel from '../../models/post';
 
-const userType = new GraphQLObjectType({
+export default new GraphQLObjectType({
   name: 'User',
   fields: {
     _id: { type: new GraphQLNonNull(GraphQLID) },
@@ -22,5 +22,3 @@ const userType = new GraphQLObjectType({
     }
   }
 });
-
-export default userType;
