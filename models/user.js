@@ -6,7 +6,7 @@ var userSchema = new mongoose.Schema({
   username: { type: String, },
   posts: {
     type: [Schema.Types.ObjectId],
-    ref: 'PostType'
+    ref: 'Post'
   }
 });
 
