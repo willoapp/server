@@ -7,33 +7,16 @@ import {
   GraphQLID
 } from 'graphql';
 import { db } from '../app';
+import queries from './queries';
+// import mutations from './mutations';
 
-var UserType = new GraphQLObjectType({
-  name: 'user',
-  fields: {
-    _id: {
-      type: GraphQLID,
-    },
-    email: {
-      type: GraphQLString
-    },
-    username: {
-      type: GraphQLString
-    }
-  }
-})
-
-
-export const schema = new GraphQLSchema({
+export default new GraphQLSchema({
   query: new GraphQLObjectType({
-    name: 'RootQueryType',
-    fields: {
-      users: {
-        type: new GraphQLList(UserType),
-        resolve() {
-          return db.get('users').find({});
-        }
-      }
-    }
-  })
+    name: 'Query',
+    fields: queries
+  }),
+  // mutation: new GraphQLObjectType({
+  //   name: 'Mutation',
+  //   fields: mutations
+  // })
 });

@@ -16,9 +16,10 @@
     "graphql": "^0.9.1",
     "jade": "~1.11.0",
     "mongodb": "^2.2.25",
-    "monk": "^4.0.0",
+    "mongoose": "^4.9.5",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.2"
+    "serve-favicon": "~2.3.2",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
