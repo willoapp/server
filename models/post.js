@@ -1,12 +1,11 @@
 import mongoose, {Schema} from 'mongoose';
-import User from './user';
 
 var postSchema = new mongoose.Schema({
   content: {
     type: String,
     required: true
   },
-  user: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: 'User'
   },

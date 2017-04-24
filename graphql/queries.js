@@ -5,9 +5,6 @@ import UserModel from '../models/user';
 import postType from './types/post';
 import PostModel from '../models/post';
 
-
-// import getProjection from '../../get-projection';
-
 const queries = {
   users: {
     type: new GraphQLList(userType),

@@ -2,13 +2,14 @@ import {
   GraphQLBoolean,
   GraphQLNonNull
 } from 'graphql';
-import UserInputType from './types/user-input';
-import UserType from './types/user';
-import User from '../models/user';
 
-import PostInputType from './types/post-input';
-import PostType from './types/post';
-import Post from '../models/post';
+import userInputType from './types/user-input';
+import userType from './types/user';
+import UserModel from '../models/user';
+
+import postInputType from './types/post-input';
+import postType from './types/post';
+import PostModel from '../models/post';
 
 const mutations = {
   addUser: {
@@ -16,11 +17,11 @@ const mutations = {
     args: {
       data: {
         name: 'data',
-        type: new GraphQLNonNull(UserInputType)
+        type: new GraphQLNonNull(userInputType)
       }
     },
     async resolve (root, params, options) {
-      const user = new User(params.data);
+      const user = new UserModel(params.data);
       const newUser = await user.save();
 
       if (!newUser) {
@@ -34,11 +35,11 @@ const mutations = {
     args: {
       data: {
         name: 'data',
-        type: new GraphQLNonNull(PostInputType)
+        type: new GraphQLNonNull(postInputType)
       }
     },
     async resolve (root, params, options) {
-      const post = new Post(params.data);
+      const post = new PostModel(params.data);
       const newPost = await post.save();
 
       if (!newPost) {

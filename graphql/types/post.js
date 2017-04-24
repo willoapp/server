@@ -6,8 +6,7 @@ import {
   GraphQLDate,
   GraphQLOutputType
 } from 'graphql';
-import {UserType} from './user';
-import User from '../../models/user';
+import userType from './user';
 
 export default new GraphQLObjectType({
   name: 'Post',
@@ -15,6 +14,5 @@ export default new GraphQLObjectType({
     _id: { type: new GraphQLNonNull(GraphQLID) },
     userId: { type: GraphQLID },
     content: { type: GraphQLString },
-    // user: { type: UserType }
-  }
+  },
 });
