@@ -12,5 +12,6 @@ export default new GraphQLInputObjectType({
     _id: { type: GraphQLID },
     userId: { type: GraphQLID },
     content: { type: GraphQLString },
+    // state: { type: GraphQLString }
   }
 });

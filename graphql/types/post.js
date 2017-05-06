@@ -15,6 +15,7 @@ export default new GraphQLObjectType({
     _id: { type: new GraphQLNonNull(GraphQLID) },
     userId: { type: GraphQLID },
     content: { type: GraphQLString },
+    state: { type: GraphQLString },
     user: {
       type: userType,
       resolve(post) {
