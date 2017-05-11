@@ -14,6 +14,9 @@ export default new GraphQLObjectType({
     _id: { type: new GraphQLNonNull(GraphQLID) },
     email: { type: GraphQLString },
     username: { type: GraphQLString },
+    lastViewedActivityAt: { type: GraphQLString },
+    createdAt: { type: GraphQLString },
+    updatedAt: { type: GraphQLString },
     posts: {
       type: new GraphQLList(postType),
       resolve(user) {

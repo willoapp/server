@@ -3,7 +3,6 @@ import {
   GraphQLString,
   GraphQLNonNull,
   GraphQLID,
-  GraphQLDate,
   GraphQLOutputType
 } from 'graphql';
 import userType from './user';
@@ -16,6 +15,8 @@ export default new GraphQLObjectType({
     userId: { type: GraphQLID },
     content: { type: GraphQLString },
     state: { type: GraphQLString },
+    createdAt: { type: GraphQLString },
+    updatedAt: { type: GraphQLString },
     user: {
       type: userType,
       resolve(post) {

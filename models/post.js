@@ -11,7 +11,7 @@ var postSchema = new mongoose.Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User'
-  },
+  }
 },
 {
   timestamps: true

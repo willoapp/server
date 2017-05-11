@@ -7,7 +7,13 @@ var userSchema = new mongoose.Schema({
   posts: {
     type: [Schema.Types.ObjectId],
     ref: 'Post'
+  },
+  lastViewedActivityAt: {
+    type: Schema.Types.Date
   }
+},
+{
+  timestamps: true
 });
 
 export default mongoose.model('User', userSchema);
