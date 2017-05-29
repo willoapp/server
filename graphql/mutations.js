@@ -13,7 +13,7 @@ import PostModel from '../models/post';
 
 const mutations = {
   addUser: {
-    type: GraphQLBoolean,
+    type: userType,
     args: {
       data: {
         name: 'data',
@@ -27,25 +27,28 @@ const mutations = {
       if (!newUser) {
         throw new Error("Error adding a new user");
       }
-      return true;
+      return newUser;
     }
   },
   addPost: {
-    type: GraphQLBoolean,
+    type: postType,
     args: {
-      data: {
-        name: 'data',
+      post: {
+        name: 'post',
         type: new GraphQLNonNull(postInputType)
       }
     },
     async resolve (root, params, options) {
-      const post = new PostModel(params.data);
+      const post = new PostModel({
+        userId: params.post.userId,
+        content: params.post.content
+      });
       const newPost = await post.save();
 
       if (!newPost) {
         throw new Error("Error add a new post");
       }
-      return true;
+      return newPost;
     }
   }
 }

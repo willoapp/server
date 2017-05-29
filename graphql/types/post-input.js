@@ -9,9 +9,9 @@ import {
 export default new GraphQLInputObjectType({
   name: 'PostInput',
   fields: {
-    _id: { type: GraphQLID },
     userId: { type: GraphQLID },
     content: { type: GraphQLString },
+    // _id: { type: GraphQLID },
     // state: { type: GraphQLString }
   }
 });
