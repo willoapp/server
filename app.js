@@ -5,6 +5,7 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import graphqlHTTP from 'express-graphql'
+import dotenv from 'dotenv';
 
 import { mongodb } from 'mongodb';
 import mongoose from 'mongoose';
@@ -13,10 +14,12 @@ import index from './routes/index';
 import users from './routes/users';
 import schema from './graphql/schema';
 
+dotenv.config();
 var app = express();
 const production = app.get('env') === 'production';
 // TODO: ADD a production mongo server
-export const db = mongoose.connect(production ? '***PRODUCTION MONGO SERVER***' : 'localhost:27017/obh-server');
+
+export const db = mongoose.connect(production ? '***PRODUCTION MONGO SERVER***' : process.env.DB_DEVELOPMENT_CONNECTION);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
