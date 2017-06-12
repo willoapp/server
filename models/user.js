@@ -3,13 +3,16 @@ import Post from './post'
 
 var userSchema = new mongoose.Schema({
   email: { type: String, required: true },
-  username: { type: String, },
+  firstName: String,
+  lastName: String,
+  birthDate: Date,
   posts: {
     type: [Schema.Types.ObjectId],
     ref: 'Post'
   },
-  lastViewedActivityAt: {
-    type: Schema.Types.Date
+  family: {
+    type: [Schema.Types.ObjectId],
+    ref: 'User'
   }
 },
 {
