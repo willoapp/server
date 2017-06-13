@@ -30,7 +30,7 @@ export default function(app) {
   // Set url for API group routes
   app.use('/api', apiRoutes);
 
-  app.use('/graphql', requireAuth, graphqlHTTP({
+  app.use('/graphql', graphqlHTTP({
     schema,
     graphiql: true
   }));
