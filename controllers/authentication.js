@@ -3,14 +3,14 @@ const crypto = require('crypto');
 import User from '../models/user';
 
 
-function _generateToken(user) {
+function generateToken(user) {
   return jwt.sign(user, process.env.SECRET, {
     expiresIn: '30d'
   });
 }
 
 // Don't return ALL user info, just this stuff
-function _setUserInfo(request) {
+function setUserInfo(request) {
   return {
     _id: request._id,
     firstName: request.firstName,
@@ -25,10 +25,10 @@ function _setUserInfo(request) {
 // Login Route
 //=============================================
 function login(req, res, next) {
-  let userInfo = _setUserInfo(req.user);
+  let userInfo = setUserInfo(req.user);
 
   res.status(200).json({
-    token: 'JWT ' + _generateToken(userInfo),
+    token: 'JWT ' + generateToken(userInfo),
     user: userInfo
   });
 }
@@ -81,9 +81,9 @@ function register(req, res, next) {
       // some wix api call subscribeToNewsLetter(user.email);
 
       // Respond with JWT if user was created
-      let userInfo = _setUserInfo(user);
+      let userInfo = setUserInfo(user);
       res.status(201).json({
-        token: 'JWT ' + _generateToken(userInfo),
+        token: 'JWT ' + generateToken(userInfo),
         user: userInfo
       });
     });
@@ -120,6 +120,8 @@ function roleAuthorization(role) {
 const authController = {
   login,
   register,
-  roleAuthorization
+  roleAuthorization,
+  generateToken,
+  setUserInfo,
 }
 export default authController;

@@ -12,11 +12,11 @@ const localOptions = { usernameField: 'email' };
 const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
   User.findOne({ email: email }, (err, user) => {
     if (err) return done(err);
-    if (!user) return done(null, false, { error: 'Your login details could not be verified. Please try again.' });
+    if (!user) return done(null, false, { message: 'Not an email associated with Willow' });
 
     user.comparePassword(password, (err, isMatch) => {
       if (err) return done(err);
-      if (!isMatch) return done(null, false, { error: 'Your login details could not be verified. Please try again.' });
+      if (!isMatch) return done(null, false, { message: 'Incorrect Password' });
 
       return done(null, user);
     });
