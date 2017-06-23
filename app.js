@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 
 import { mongodb } from 'mongodb';
 import mongoose from 'mongoose';
-import router from './router';
+import routes from './routes';
 
 var app = express();
 const production = app.get('env') === 'production';
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 // Authentication
 // Graphql
 // Etc...
-router(app);
+routes(app);
 
 // view engine setup - for errors and such
 app.set('views', path.join(__dirname, 'views'));
