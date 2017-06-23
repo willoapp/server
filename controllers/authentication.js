@@ -45,17 +45,17 @@ function register(req, res, next) {
 
   // Return error if no email provided
   if (!email) {
-    return res.status(422).send({ error: 'You must enter an email address.' });
+    return res.status(422).send({ message: 'You must enter an email address.' });
   }
 
   // Return error if full name not provided
   if (!firstName || !lastName) {
-    return res.status(422).send({ error: 'You must enter your full name.' });
+    return res.status(422).send({ message: 'You must enter your full name.' });
   }
 
   // Return error if no password provided
   if (!password) {
-    return res.status(422).send({ error: 'You must enter a password.' });
+    return res.status(422).send({ message: 'You must enter a password.' });
   }
 
   User.findOne({ email: email }, function(err, existingUser) {
@@ -63,7 +63,7 @@ function register(req, res, next) {
 
     // If user is not unique, return err
     if (existingUser) {
-      return res.status(422).send({ error: 'That email address is already in use.' });
+      return res.status(422).send({ message: 'That email address is already in use.' });
     }
 
     // If email is unique and password was provided, create account
@@ -90,6 +90,18 @@ function register(req, res, next) {
   });
 }
 
+function validateVerificationCode(req, res, next) {
+  const email = req.body.email;
+  const verificationCode = req.body.verificationCode;
+
+  User.findOne({email: email}, function (err, user) {
+    if (err) return next(err);
+    if (!user) return res.status(500).send({ message: "Internal error occured matching your email address." });
+    if (user.verificationCode !== verificationCode) return res.status(422).send({ message: "Verification code did not match. Please check your email and try again." });
+    return res.status(200).send(user);
+  });
+}
+
 
 //=============================================
 // Authorization Middleware
@@ -102,7 +114,7 @@ function roleAuthorization(role) {
 
     User.findById(user._id, function (err, foundUser) {
       if (err) {
-        res.status(422).json({ error: 'No user was found.' });
+        res.status(422).json({ message: 'No user was found.' });
         return next(err);
       }
 
@@ -111,7 +123,7 @@ function roleAuthorization(role) {
         return next();
       }
 
-      res.status(401).json({ error: 'You are not authorized to view this content.' });
+      res.status(401).json({ message: 'You are not authorized to view this content.' });
       return next('Unauthorized');
     });
   }
@@ -123,5 +135,6 @@ const authController = {
   roleAuthorization,
   generateToken,
   setUserInfo,
+  validateVerificationCode,
 }
 export default authController;

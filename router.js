@@ -24,6 +24,8 @@ export default function(app) {
   // Registration route
   authRoutes.post('/register', authenticationController.register);
 
+  authRoutes.post('/validateVerificationCode', authenticationController.validateVerificationCode);
+
   // Login route
   authRoutes.post(
     '/login', function(req, res, next) {
