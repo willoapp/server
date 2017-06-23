@@ -5,6 +5,11 @@ import {
   GraphQLID,
   GraphQLOutputType
 } from 'graphql';
+
+import {
+  GraphQLDateTime,
+} from 'graphql-iso-date';
+
 import userType from './user';
 import UserModel from '../../models/user';
 
@@ -15,8 +20,8 @@ export default new GraphQLObjectType({
     userId: { type: GraphQLID },
     content: { type: GraphQLString },
     state: { type: GraphQLString },
-    createdAt: { type: GraphQLString },
-    updatedAt: { type: GraphQLString },
+    createdAt: { type: GraphQLDateTime },
+    updatedAt: { type: GraphQLDateTime },
     user: {
       type: userType,
       resolve(post) {

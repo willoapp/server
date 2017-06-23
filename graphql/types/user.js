@@ -5,6 +5,10 @@ import {
   GraphQLID,
   GraphQLList
 } from 'graphql';
+import {
+  GraphQLDateTime,
+} from 'graphql-iso-date';
+
 import postType from './post';
 import PostModel from '../../models/post';
 
@@ -15,8 +19,8 @@ export default new GraphQLObjectType({
     email: { type: GraphQLString },
     firstName: { type: GraphQLString },
     lastName: { type: GraphQLString },
-    createdAt: { type: GraphQLString },
-    updatedAt: { type: GraphQLString },
+    createdAt: { type: GraphQLDateTime },
+    updatedAt: { type: GraphQLDateTime },
     posts: {
       type: new GraphQLList(postType),
       resolve(user) {
